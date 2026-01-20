@@ -53,12 +53,6 @@
             height: 60px;
         }
 
-        .checkbox {
-            margin-top: 15px;
-            font-size: 14px;
-            text-align: left;
-        }
-
         .btn {
             display: block;
             margin-top: 25px;
@@ -66,7 +60,6 @@
             font-size: 18px;
             font-weight: 600;
             text-decoration: none;
-            text-align: center;
             color: #0b0b12;
             background: linear-gradient(135deg, #00ffa6, #00c3ff);
             border-radius: 12px;
@@ -81,10 +74,11 @@
         }
 
         .admin {
-            margin-top: 15px;
+            margin-top: 20px;
             font-size: 13px;
-            color: #ffb347;
+            color: #ffcc80;
             display: none;
+            text-align: left;
         }
     </style>
 </head>
@@ -101,8 +95,6 @@
 
     <textarea id="musique" placeholder="Une idée de musique ? 🎶"></textarea>
 
-   
-
     <a id="payBtn" class="btn" href="https://lydia-app.com/TON-LIEN-DE-CAGNOTTE">
         💸 Payer via Lydia
     </a>
@@ -112,36 +104,48 @@
 
 <script>
     const classesAutorisees = ["801","802","803","901","902","903"];
-    let compteur = localStorage.getItem("classeInconnue") || 0;
+    const ADMIN_PASSWORD = "inter803";
+
+    let compteurClasseInconnue = Number(localStorage.getItem("classeInconnue") || 0);
+    let majeurs = JSON.parse(localStorage.getItem("majeurs") || "[]");
+    let mineurs = JSON.parse(localStorage.getItem("mineurs") || "[]");
+
     let clickCount = 0;
 
     const prenom = document.getElementById("prenom");
     const nom = document.getElementById("nom");
     const age = document.getElementById("age");
     const classe = document.getElementById("classe");
-    const majorite = document.getElementById("majorite");
     const payBtn = document.getElementById("payBtn");
     const title = document.getElementById("title");
     const adminPanel = document.getElementById("adminPanel");
 
     function checkForm() {
-        if (
-            prenom.value &&
-            nom.value &&
-            age.value >= 18 &&
-            classe.value &&
-            majorite.checked
-        ) {
+        if (prenom.value && nom.value && age.value && classe.value) {
             payBtn.classList.add("active");
         } else {
             payBtn.classList.remove("active");
         }
     }
 
+    document.querySelectorAll("input").forEach(el =>
+        el.addEventListener("input", checkForm)
+    );
+
     payBtn.addEventListener("click", () => {
+        const personne = `${prenom.value} ${nom.value} (${age.value} ans, classe ${classe.value})`;
+
+        if (age.value < 18) {
+            mineurs.push(personne);
+            localStorage.setItem("mineurs", JSON.stringify(mineurs));
+        } else {
+            majeurs.push(personne);
+            localStorage.setItem("majeurs", JSON.stringify(majeurs));
+        }
+
         if (!classesAutorisees.includes(classe.value.trim())) {
-            compteur++;
-            localStorage.setItem("classeInconnue", compteur);
+            compteurClasseInconnue++;
+            localStorage.setItem("classeInconnue", compteurClasseInconnue);
         }
     });
 
@@ -149,19 +153,21 @@
         clickCount++;
         if (clickCount === 5) {
             const pass = prompt("Mot de passe admin ?");
-            if (pass === "inter803") {
+            if (pass === ADMIN_PASSWORD) {
                 adminPanel.style.display = "block";
-                adminPanel.innerHTML =
-                    "Classes non listées : <strong>" + compteur + "</strong>";
+                adminPanel.innerHTML = `
+                    <strong>Participants majeurs :</strong><br>
+                    ${majeurs.join("<br>") || "Aucun"}<br><br>
+
+                    <strong>Participants mineurs :</strong><br>
+                    ${mineurs.join("<br>") || "Aucun"}<br><br>
+
+                    <strong>Classes non listées :</strong> ${compteurClasseInconnue}
+                `;
             }
             clickCount = 0;
         }
     });
-
-    document.querySelectorAll("input").forEach(el =>
-        el.addEventListener("input", checkForm)
-    );
-    majorite.addEventListener("change", checkForm);
 </script>
 
 </body>
