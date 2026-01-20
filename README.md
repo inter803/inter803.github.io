@@ -79,9 +79,9 @@
 <body>
 
     <div class="container">
-        <h1>🎉Inter 803 le 20 février 🎉</h1>
+        <h1>🎉Inter 803 🎉<br>Le 20 février</h1>
         <p class="subtitle">
-            Aide-nous à financer la soirée<br>
+           ✨ Aide-nous à financer la soirée<br>
             plus d'argent = plus d'alcool✨
         </p>
 
