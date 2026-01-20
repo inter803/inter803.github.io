@@ -82,13 +82,13 @@
         <h1>🎉 Soirée Étudiante 🎉</h1>
         <p class="subtitle">
             Aide-nous à financer la soirée<br>
-            et viens la rendre inoubliable ✨
+            plus d'argent = plus d'alcool ✨
         </p>
 
         <div class="divider"></div>
 
         <p>
-            Participation libre<br>
+            8€ par personnes<br>
             <span class="emoji">🍻 🎶 💃</span>
         </p>
 
