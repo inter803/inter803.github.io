@@ -30,78 +30,118 @@
         h1 {
             margin-top: 0;
             font-size: 28px;
-            letter-spacing: 1px;
         }
 
-        .subtitle {
+        h2 {
+            font-size: 18px;
+            font-weight: normal;
             opacity: 0.85;
-            margin-bottom: 25px;
         }
 
-        .divider {
-            width: 60px;
-            height: 4px;
-            margin: 20px auto;
-            background: linear-gradient(90deg, #00ffa6, #00c3ff);
-            border-radius: 2px;
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: none;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: none;
+            height: 60px;
+        }
+
+        .checkbox {
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: left;
         }
 
         .btn {
             display: block;
-            margin-top: 30px;
+            margin-top: 25px;
             padding: 16px;
             font-size: 18px;
             font-weight: 600;
             text-decoration: none;
+            text-align: center;
             color: #0b0b12;
             background: linear-gradient(135deg, #00ffa6, #00c3ff);
             border-radius: 12px;
             box-shadow: 0 0 20px rgba(0, 255, 200, 0.4);
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            pointer-events: none;
+            opacity: 0.4;
         }
 
-        .btn:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 30px rgba(0, 255, 200, 0.6);
+        .btn.active {
+            pointer-events: auto;
+            opacity: 1;
         }
 
         .footer {
-            margin-top: 25px;
+            margin-top: 20px;
             font-size: 13px;
             opacity: 0.75;
-        }
-
-        .emoji {
-            font-size: 22px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>🎉 Inter des 803 🎉</h1>
-        <h2>vendredi 20 février</h2>
-        <p class="subtitle">
-            Aide-nous à financer la soirée<br>
-            plus d'argent = plus d'alcool ✨
-        </p>
+<div class="container">
+    <h1>🎉 Inter des 803 🎉</h1>
+    <h2>Vendredi 20 février</h2>
 
-        <div class="divider"></div>
+    <p>
+        Participation : <strong>8 €</strong>
+    </p>
 
-        <p>
-            8€ par personnes <br>
-            <span class="emoji">🍻 🎶 💃</span>
-        </p>
+    <input type="text" id="prenom" placeholder="Prénom" required>
+    <input type="text" id="nom" placeholder="Nom" required>
+    <input type="number" id="age" placeholder="Âge" min="0" required>
 
-        <a class="btn" href="https://buy.stripe.com/test_5kQ14g7SQa9Cf1W7d66wE00">
-            💸 Payer
-        </a>
+    <textarea id="musique" placeholder="Une idée de musique ? 🎶"></textarea>
 
-        <div class="footer">
-            Paiement sécurisé • Simple • Rapide<br>
-            Merci pour le soutien ❤️
-        </div>
+    <div class="checkbox">
+        <input type="checkbox" id="majorite">
+        <label for="majorite">Je confirme avoir <strong>18 ans ou plus</strong></label>
     </div>
+
+    <a id="payBtn" class="btn" href="https://lydia-app.com/TON-LIEN-DE-CAGNOTTE">
+        💸 Payer via Lydia
+    </a>
+
+    <div class="footer">
+        Paiement sécurisé • Lydia<br>
+        Merci pour le soutien ❤️
+    </div>
+</div>
+
+<script>
+    const prenom = document.getElementById("prenom");
+    const nom = document.getElementById("nom");
+    const age = document.getElementById("age");
+    const majorite = document.getElementById("majorite");
+    const payBtn = document.getElementById("payBtn");
+
+    function checkForm() {
+        if (
+            prenom.value.trim() !== "" &&
+            nom.value.trim() !== "" &&
+            age.value >= 18 &&
+            majorite.checked
+        ) {
+            payBtn.classList.add("active");
+        } else {
+            payBtn.classList.remove("active");
+        }
+    }
+
+    prenom.addEventListener("input", checkForm);
+    nom.addEventListener("input", checkForm);
+    age.addEventListener("input", checkForm);
+    majorite.addEventListener("change", checkForm);
+</script>
 
 </body>
 </html>
