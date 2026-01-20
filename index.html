@@ -91,12 +91,12 @@
     <input type="text" id="prenom" placeholder="Prénom" required>
     <input type="text" id="nom" placeholder="Nom" required>
     <input type="number" id="age" placeholder="Âge" min="0" required>
-    <input type="text" id="classe" placeholder="Classe (ex : 803)" required>
+    <input type="text" id="classe" placeholder="Classe " required>
 
     <textarea id="musique" placeholder="Une idée de musique ? 🎶"></textarea>
 
     <a id="payBtn" class="btn" href="https://lydia-app.com/TON-LIEN-DE-CAGNOTTE">
-        💸 Payer via Lydia
+        💸 Payer
     </a>
 
     <div id="adminPanel" class="admin"></div>
@@ -167,8 +167,32 @@
             }
             clickCount = 0;
         }
+
+
+
     });
 </script>
 
 </body>
 </html>
+
+<script>
+const API_URL = "COLLE_ICI_L_URL_DU_SCRIPT";
+
+document.getElementById("payBtn").addEventListener("click", async () => {
+  const data = {
+    prenom: prenom.value,
+    nom: nom.value,
+    age: age.value,
+    classe: classe.value,
+    musique: musique.value
+  };
+
+  await fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  });
+
+  window.location.href = "LIEN_LYDIA";
+});
+</script>
