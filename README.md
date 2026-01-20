@@ -82,7 +82,7 @@
         <h1>🎉 Soirée Étudiante 🎉</h1>
         <p class="subtitle">
             Aide-nous à financer la soirée<br>
-            plus d'argent = plus d'alcool ✨
+            plus d'argent = plus d'alcool✨
         </p>
 
         <div class="divider"></div>
