@@ -1,198 +1,156 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Inter 803</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Inter 803</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: radial-gradient(circle at top, #1e1e2f, #0b0b12);
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+<style>
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: radial-gradient(circle at top, #1e1e2f, #0b0b12);
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .container {
-            width: 90%;
-            max-width: 420px;
-            background: rgba(20, 20, 30, 0.9);
-            border-radius: 16px;
-            padding: 35px 30px;
-            text-align: center;
-            box-shadow: 0 0 40px rgba(0, 255, 170, 0.15);
-        }
+.container {
+    width: 90%;
+    max-width: 420px;
+    background: rgba(20, 20, 30, 0.9);
+    border-radius: 16px;
+    padding: 35px 30px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(0, 255, 170, 0.15);
+}
 
-        h1 {
-            margin-top: 0;
-            font-size: 28px;
-            cursor: pointer;
-        }
+h1 {
+    margin-top: 0;
+    font-size: 28px;
+    cursor: pointer;
+}
 
-        h2 {
-            font-size: 18px;
-            font-weight: normal;
-            opacity: 0.85;
-        }
+.subtitle {
+    opacity: 0.85;
+    margin-bottom: 20px;
+}
 
-        input, textarea {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border-radius: 8px;
-            border: none;
-            font-size: 14px;
-        }
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+}
 
-        textarea {
-            resize: none;
-            height: 60px;
-        }
+.btn {
+    display: block;
+    margin-top: 25px;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #0b0b12;
+    background: linear-gradient(135deg, #00ffa6, #00c3ff);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 255, 200, 0.4);
+    cursor: pointer;
+}
 
-        .btn {
-            display: block;
-            margin-top: 25px;
-            padding: 16px;
-            font-size: 18px;
-            font-weight: 600;
-            text-decoration: none;
-            color: #0b0b12;
-            background: linear-gradient(135deg, #00ffa6, #00c3ff);
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0, 255, 200, 0.4);
-            pointer-events: none;
-            opacity: 0.4;
-        }
+#easterEgg {
+    display: none;
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #00ffa6;
+    animation: pop 0.4s ease;
+}
 
-        .btn.active {
-            pointer-events: auto;
-            opacity: 1;
-        }
-
-        .admin {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #ffcc80;
-            display: none;
-            text-align: left;
-        }
-    </style>
+@keyframes pop {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+</style>
 </head>
+
 <body>
-
 <div class="container">
-    <h1 id="title">🎉 Inter des 803 🎉</h1>
-    <h2>Vendredi 20 février</h2>
 
-    <input type="text" id="prenom" placeholder="Prénom" required>
-    <input type="text" id="nom" placeholder="Nom" required>
-    <input type="number" id="age" placeholder="Âge" min="0" required>
-    <input type="text" id="classe" placeholder="Classe " required>
+<h1 id="title">🎉 Inter des 803 🎉</h1>
+<div id="easterEgg">803 &gt; 802 😎</div>
 
-    <textarea id="musique" placeholder="Une idée de musique ? 🎶"></textarea>
+<p class="subtitle">
+Vendredi 20 février<br>
+8€ • 🍻 🎶 💃
+</p>
 
-    <a id="payBtn" class="btn" href="https://lydia-app.com/TON-LIEN-DE-CAGNOTTE">
-        💸 Payer
-    </a>
+<input id="prenom" placeholder="Prénom" required>
+<input id="nom" placeholder="Nom" required>
+<input id="age" type="number" placeholder="Âge" required>
+<input id="classe" placeholder="Classe (ex : 803)" required>
+<input id="musique" placeholder="Idée de musique 🎶 (optionnel)">
 
-    <div id="adminPanel" class="admin"></div>
+<button class="btn" id="payBtn">💸 Payer</button>
+
+<p style="margin-top:15px;font-size:13px;opacity:0.7;">
+Paiement sécurisé • Merci ❤️
+</p>
+
 </div>
 
 <script>
-    const classesAutorisees = ["801","802","803","901","902","903"];
-    const ADMIN_PASSWORD = "inter803";
+/* ================== CONFIG ================== */
+const API_URL = "https://script.google.com/macros/s/AKfycbwQtk3ErcKjx9GauuRRsTOJ7BaUixFo6KdTsiXkhqCc97RxF1L00N23S6ZsIq1jzJCMrw/exec";
+const LIEN_LYDIA = "LIEN_LYDIA_ICI";
 
-    let compteurClasseInconnue = Number(localStorage.getItem("classeInconnue") || 0);
-    let majeurs = JSON.parse(localStorage.getItem("majeurs") || "[]");
-    let mineurs = JSON.parse(localStorage.getItem("mineurs") || "[]");
+/* ================== ENVOI DONNÉES ================== */
+document.getElementById("payBtn").addEventListener("click", async () => {
+    const data = {
+        prenom: prenom.value.trim(),
+        nom: nom.value.trim(),
+        age: age.value,
+        classe: classe.value.trim(),
+        musique: musique.value.trim()
+    };
 
-    let clickCount = 0;
-
-    const prenom = document.getElementById("prenom");
-    const nom = document.getElementById("nom");
-    const age = document.getElementById("age");
-    const classe = document.getElementById("classe");
-    const payBtn = document.getElementById("payBtn");
-    const title = document.getElementById("title");
-    const adminPanel = document.getElementById("adminPanel");
-
-    function checkForm() {
-        if (prenom.value && nom.value && age.value && classe.value) {
-            payBtn.classList.add("active");
-        } else {
-            payBtn.classList.remove("active");
-        }
+    if (!data.prenom || !data.nom || !data.age || !data.classe) {
+        alert("Merci de remplir tous les champs obligatoires");
+        return;
     }
 
-    document.querySelectorAll("input").forEach(el =>
-        el.addEventListener("input", checkForm)
-    );
+    try {
+        await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
 
-    payBtn.addEventListener("click", () => {
-        const personne = `${prenom.value} ${nom.value} (${age.value} ans, classe ${classe.value})`;
+        window.location.href = LIEN_LYDIA;
 
-        if (age.value < 18) {
-            mineurs.push(personne);
-            localStorage.setItem("mineurs", JSON.stringify(mineurs));
-        } else {
-            majeurs.push(personne);
-            localStorage.setItem("majeurs", JSON.stringify(majeurs));
-        }
+    } catch (e) {
+        alert("Erreur lors de l'envoi 😢");
+    }
+});
 
-        if (!classesAutorisees.includes(classe.value.trim())) {
-            compteurClasseInconnue++;
-            localStorage.setItem("classeInconnue", compteurClasseInconnue);
-        }
-    });
+/* ================== EASTER EGG ================== */
+let clicks = 0;
+const title = document.getElementById("title");
+const egg = document.getElementById("easterEgg");
 
-    title.addEventListener("click", () => {
-        clickCount++;
-        if (clickCount === 5) {
-            const pass = prompt("Mot de passe admin ?");
-            if (pass === ADMIN_PASSWORD) {
-                adminPanel.style.display = "block";
-                adminPanel.innerHTML = `
-                    <strong>Participants majeurs :</strong><br>
-                    ${majeurs.join("<br>") || "Aucun"}<br><br>
-
-                    <strong>Participants mineurs :</strong><br>
-                    ${mineurs.join("<br>") || "Aucun"}<br><br>
-
-                    <strong>Classes non listées :</strong> ${compteurClasseInconnue}
-                `;
-            }
-            clickCount = 0;
-        }
-
-
-
-    });
+title.addEventListener("click", () => {
+    clicks++;
+    if (clicks === 7) {
+        egg.style.display = "block";
+        clicks = 0;
+        setTimeout(() => egg.style.display = "none", 5000);
+    }
+    setTimeout(() => clicks = 0, 1500);
+});
 </script>
 
 </body>
 </html>
-
-<script>
-const API_URL = "https://script.google.com/macros/s/AKfycbwR4UlwrjB7dyMvkwdGEfiL1yGRgoFZWy17O-cwdjAvgzL0zaEWVS4tbiNRc32FE_4b3Q/exec";
-
-document.getElementById("payBtn").addEventListener("click", async () => {
-  const data = {
-    prenom: prenom.value,
-    nom: nom.value,
-    age: age.value,
-    classe: classe.value,
-    musique: musique.value
-  };
-
-  await fetch(API_URL, {
-    method: "POST",
-    body: JSON.stringify(data)
-  });
-
-  window.location.href = "https://www.lydia.me/";
-});
-</script>
