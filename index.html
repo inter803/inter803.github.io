@@ -30,6 +30,7 @@
         h1 {
             margin-top: 0;
             font-size: 28px;
+            cursor: pointer;
         }
 
         h2 {
@@ -79,56 +80,56 @@
             opacity: 1;
         }
 
-        .footer {
-            margin-top: 20px;
+        .admin {
+            margin-top: 15px;
             font-size: 13px;
-            opacity: 0.75;
+            color: #ffb347;
+            display: none;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🎉 Inter des 803 🎉</h1>
+    <h1 id="title">🎉 Inter des 803 🎉</h1>
     <h2>Vendredi 20 février</h2>
-
-    <p>
-        Participation : <strong>8 €</strong>
-    </p>
 
     <input type="text" id="prenom" placeholder="Prénom" required>
     <input type="text" id="nom" placeholder="Nom" required>
     <input type="number" id="age" placeholder="Âge" min="0" required>
+    <input type="text" id="classe" placeholder="Classe (ex : 803)" required>
 
     <textarea id="musique" placeholder="Une idée de musique ? 🎶"></textarea>
 
-    <div class="checkbox">
-        <input type="checkbox" id="majorite">
-        <label for="majorite">Je confirme avoir <strong>18 ans ou plus</strong></label>
-    </div>
+   
 
     <a id="payBtn" class="btn" href="https://lydia-app.com/TON-LIEN-DE-CAGNOTTE">
         💸 Payer via Lydia
     </a>
 
-    <div class="footer">
-        Paiement sécurisé • Lydia<br>
-        Merci pour le soutien ❤️
-    </div>
+    <div id="adminPanel" class="admin"></div>
 </div>
 
 <script>
+    const classesAutorisees = ["801","802","803","901","902","903"];
+    let compteur = localStorage.getItem("classeInconnue") || 0;
+    let clickCount = 0;
+
     const prenom = document.getElementById("prenom");
     const nom = document.getElementById("nom");
     const age = document.getElementById("age");
+    const classe = document.getElementById("classe");
     const majorite = document.getElementById("majorite");
     const payBtn = document.getElementById("payBtn");
+    const title = document.getElementById("title");
+    const adminPanel = document.getElementById("adminPanel");
 
     function checkForm() {
         if (
-            prenom.value.trim() !== "" &&
-            nom.value.trim() !== "" &&
+            prenom.value &&
+            nom.value &&
             age.value >= 18 &&
+            classe.value &&
             majorite.checked
         ) {
             payBtn.classList.add("active");
@@ -137,9 +138,29 @@
         }
     }
 
-    prenom.addEventListener("input", checkForm);
-    nom.addEventListener("input", checkForm);
-    age.addEventListener("input", checkForm);
+    payBtn.addEventListener("click", () => {
+        if (!classesAutorisees.includes(classe.value.trim())) {
+            compteur++;
+            localStorage.setItem("classeInconnue", compteur);
+        }
+    });
+
+    title.addEventListener("click", () => {
+        clickCount++;
+        if (clickCount === 5) {
+            const pass = prompt("Mot de passe admin ?");
+            if (pass === "inter803") {
+                adminPanel.style.display = "block";
+                adminPanel.innerHTML =
+                    "Classes non listées : <strong>" + compteur + "</strong>";
+            }
+            clickCount = 0;
+        }
+    });
+
+    document.querySelectorAll("input").forEach(el =>
+        el.addEventListener("input", checkForm)
+    );
     majorite.addEventListener("change", checkForm);
 </script>
 
