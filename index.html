@@ -49,16 +49,17 @@ input {
 
 .btn {
     display: block;
+    width: 100%;
     margin-top: 25px;
     padding: 16px;
     font-size: 18px;
     font-weight: 600;
-    text-decoration: none;
     color: #0b0b12;
     background: linear-gradient(135deg, #00ffa6, #00c3ff);
     border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0, 255, 200, 0.4);
+    border: none;
     cursor: pointer;
+    box-shadow: 0 0 20px rgba(0, 255, 200, 0.4);
 }
 
 #easterEgg {
@@ -104,8 +105,8 @@ Paiement sécurisé • Merci ❤️
 
 <script>
 /* ================== CONFIG ================== */
-const API_URL = "https://script.google.com/macros/s/AKfycbwQtk3ErcKjx9GauuRRsTOJ7BaUixFo6KdTsiXkhqCc97RxF1L00N23S6ZsIq1jzJCMrw/exec";
-const LIEN_LYDIA = "https://www.lydia.me";
+const API_URL = "URL_GOOGLE_SCRIPT_ICI";
+const LIEN_LYDIA = "LIEN_LYDIA_ICI";
 
 /* ================== ENVOI DONNÉES ================== */
 document.getElementById("payBtn").addEventListener("click", async () => {
@@ -129,26 +130,21 @@ document.getElementById("payBtn").addEventListener("click", async () => {
             body: JSON.stringify(data)
         });
 
-        window.location.href = https://www.lydia.me ;
+        window.location.href = LIEN_LYDIA;
 
     } catch (e) {
         alert("Erreur lors de l'envoi 😢");
     }
 });
 
-/* ================== EASTER EGG ================== */
-let clicks = 0;
+/* ================== EASTER EGG (1 CLIC) ================== */
 const title = document.getElementById("title");
 const egg = document.getElementById("easterEgg");
 
 title.addEventListener("click", () => {
-    clicks++;
-    if (clicks === 7) {
-        egg.style.display = "block";
-        clicks = 0;
-        setTimeout(() => egg.style.display = "none", 5000);
-    }
-    setTimeout(() => clicks = 0, 1500);
+    egg.style.display = "block";
+    egg.style.animation = "pop 0.4s ease";
+    setTimeout(() => egg.style.display = "none", 5000);
 });
 </script>
 
