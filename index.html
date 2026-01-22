@@ -1,152 +1,101 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Inter 803</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Inter 803</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: radial-gradient(circle at top, #1e1e2f, #0b0b12);
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+<style>
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: radial-gradient(circle at top, #1e1e2f, #0b0b12);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .container {
-            width: 90%;
-            max-width: 420px;
-            background: rgba(20, 20, 30, 0.9);
-            border-radius: 16px;
-            padding: 35px 30px;
-            text-align: center;
-            box-shadow: 0 0 40px rgba(0, 255, 170, 0.15);
-        }
+.container {
+    width: 90%;
+    max-width: 420px;
+    background: rgba(20,20,30,0.9);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(0,255,170,0.15);
+}
 
-        h1 {
-            margin-top: 0;
-            font-size: 28px;
-            letter-spacing: 1px;
-            cursor: pointer;
-        }
+h1 {
+    cursor: pointer;
+}
 
-        h2 {
-            font-weight: normal;
-            opacity: 0.85;
-        }
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
+}
 
-        .subtitle {
-            opacity: 0.85;
-            margin-bottom: 25px;
-        }
+textarea {
+    resize: none;
+}
 
-        .divider {
-            width: 60px;
-            height: 4px;
-            margin: 20px auto;
-            background: linear-gradient(90deg, #00ffa6, #00c3ff);
-            border-radius: 2px;
-        }
+.btn {
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg,#00ffa6,#00c3ff);
+    color: #0b0b12;
+    cursor: pointer;
+}
 
-        input, textarea {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border-radius: 8px;
-            border: none;
-            font-size: 15px;
-        }
+#easterEgg {
+    display: none;
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #00ffa6;
+    animation: pop 0.4s ease;
+}
 
-        textarea {
-            resize: none;
-        }
-
-        .btn {
-            display: block;
-            margin-top: 25px;
-            padding: 16px;
-            font-size: 18px;
-            font-weight: 600;
-            text-decoration: none;
-            color: #0b0b12;
-            background: linear-gradient(135deg, #00ffa6, #00c3ff);
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0, 255, 200, 0.4);
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 30px rgba(0, 255, 200, 0.6);
-        }
-
-        .footer {
-            margin-top: 25px;
-            font-size: 13px;
-            opacity: 0.75;
-        }
-
-        #easterEgg {
-            display: none;
-            margin-top: 15px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #00ffa6;
-            animation: pop 0.4s ease;
-        }
-
-        @keyframes pop {
-            0% { transform: scale(0.7); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-    </style>
+@keyframes pop {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+</style>
 </head>
 
 <body>
-
 <div class="container">
-    <h1 id="title">🎉 Inter des 803 🎉</h1>
-    <div id="easterEgg">803 &gt; 802 </div>
 
-    <h2>Vendredi 20 février</h2>
+<h1 id="title">🎉 Inter des 803 🎉</h1>
+<div id="easterEgg">803 &gt; 802 </div>
 
-    <p class="subtitle">
-        Aide-nous à financer la soirée<br>
-        plus d'argent = plus d'alcool ✨
-    </p>
+<p>Participation : <b>8 €</b> — paiement Lydia (sans frais)</p>
 
-    <div class="divider"></div>
+<form action="https://TON_LIEN_LYDIA" method="GET">
+    <input name="prenom" placeholder="Prénom" required>
+    <input name="nom" placeholder="Nom" required>
+    <input type="number" name="age" placeholder="Âge" required>
+    <input name="classe" placeholder="Classe (801–903)" required>
+    <textarea name="musique" placeholder="Idée de musique 🎶 (facultatif)"></textarea>
 
-    <p>8€ par personne 🍻 🎶 💃</p>
+    <button class="btn" type="submit">
+        💸 Payer via Lydia
+    </button>
+</form>
 
-    <!-- FORMULAIRE -->
-    <form action="https://formspree.io/f/mojeqzor" method="POST">
+<p style="font-size:13px;opacity:0.8;margin-top:15px">
+Après paiement, tu seras automatiquement redirigé 👍
+</p>
 
-        <input type="text" name="prenom" placeholder="Prénom" required>
-        <input type="text" name="nom" placeholder="Nom" required>
-        <input type="number" name="age" placeholder="Âge" required>
-        <input type="text" name="classe" placeholder="Classe (801, 802, 803…)" required>
-
-        <textarea name="musique" placeholder="Idée de musique 🎶 (facultatif)" rows="3"></textarea>
-
-        <!-- redirection paiement -->
-        <input type="hidden" name="_next" value="https://buy.stripe.com/test_5kQ14g7SQa9Cf1W7d66wE00">
-
-        <button class="btn" type="submit">
-            💸 Envoyer & Payer
-        </button>
-    </form>
-
-    <div class="footer">
-        Paiement sécurisé • Données privées<br>
-        Merci pour le soutien ❤️
-    </div>
 </div>
 
 <script>
