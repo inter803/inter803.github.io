@@ -1,1 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Merci !</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+<h2>Merci pour ta participation 🎉</h2>
+<p>Paiement reçu. Inscription enregistrée.</p>
+
+<form id="formspree" action="https://formspree.io/f/mojeqzor" method="POST">
+    <input type="hidden" name="prenom">
+    <input type="hidden" name="nom">
+    <input type="hidden" name="age">
+    <input type="hidden" name="classe">
+    <input type="hidden" name="musique">
+</form>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+["prenom","nom","age","classe","musique"].forEach(field => {
+    document.querySelector(`[name="${field}"]`).value = params.get(field) || "";
+});
+
+// envoi automatique vers Formspree
+document.getElementById("formspree").submit();
+</script>
+
+</body>
+</html>
 
