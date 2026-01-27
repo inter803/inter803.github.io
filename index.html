@@ -56,60 +56,75 @@ textarea {
     cursor: pointer;
 }
 
-#easterEgg {
+/* ===== EASTER EGG FULL SCREEN ===== */
+#eggOverlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, #00ffa6, #00c3ff);
+    color: #0b0b12;
     display: none;
-    margin-top: 15px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #00ffa6;
-    animation: pop 0.4s ease;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(40px, 10vw, 120px);
+    font-weight: 900;
+    z-index: 9999;
+    animation: eggPop 0.4s ease;
 }
 
-@keyframes pop {
-    0% { transform: scale(0.7); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
+@keyframes eggPop {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 </style>
 </head>
 
 <body>
+
 <div class="container">
 
-<h1 id="title">🎉 Inter des 803 🎉</h1>
-<div id="easterEgg">803 &gt; 802 </div>
+    <h1 id="title">🎉 Inter des 803 🎉</h1>
 
-<p>Participation : <b>8 €</b> — paiement (sans frais)</p>
+    <p>Participation : <b>8 €</b> — paiement (sans frais)</p>
 
-<form action="https://revolut.me/m_mennereau" method="GET">
-    <input name="prenom" placeholder="Prénom" required>
-    <input name="nom" placeholder="Nom" required>
-    <input type="number" name="age" placeholder="Âge" required>
-    <input name="classe" placeholder="Classe (801–903)" required>
-    <textarea name="musique" placeholder="Idée de musique 🎶 (facultatif)"></textarea>
+    <form action="https://revolut.me/m_mennereau" method="GET">
+        <input name="prenom" placeholder="Prénom" required>
+        <input name="nom" placeholder="Nom" required>
+        <input type="number" name="age" placeholder="Âge" required>
+        <input name="classe" placeholder="Classe (801–903)" required>
+        <textarea name="musique" placeholder="Idée de musique 🎶 (facultatif)"></textarea>
 
-    <button class="btn" type="submit">
-        💸 Payer 8€
-    </button>
-</form>
+        <button class="btn" type="submit">
+            💸 Payer 8 €
+        </button>
+    </form>
 
-<p style="font-size:13px;opacity:0.8;margin-top:15px">
-Après paiement, tu seras automatiquement redirigé 👍
-</p>
+    <p style="font-size:13px;opacity:0.8;margin-top:15px">
+        Après paiement, tu seras automatiquement redirigé 👍
+    </p>
 
 </div>
 
+<!-- EASTER EGG OVERLAY -->
+<div id="eggOverlay">
+    🔥 803 &gt; 802 😎 🔥
+</div>
+
 <script>
-let clicks = 0;
 const title = document.getElementById("title");
-const egg = document.getElementById("easterEgg");
+const overlay = document.getElementById("eggOverlay");
 
 title.addEventListener("click", () => {
-    clicks++;
-    if (clicks === 7) {
-        egg.style.display = "block";
-        clicks = 0;
-    }
-    setTimeout(() => clicks = 0, 1500);
+    overlay.style.display = "flex";
+
+    setTimeout(() => {
+        overlay.style.display = "none";
+    }, 5000);
 });
 </script>
 
