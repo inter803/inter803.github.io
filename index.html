@@ -27,9 +27,7 @@ body {
     box-shadow: 0 0 40px rgba(0,255,170,0.15);
 }
 
-h1 {
-    cursor: pointer;
-}
+h1 { cursor: pointer; }
 
 input, textarea {
     width: 100%;
@@ -40,9 +38,7 @@ input, textarea {
     font-size: 15px;
 }
 
-textarea {
-    resize: none;
-}
+textarea { resize: none; }
 
 .btn {
     margin-top: 20px;
@@ -68,18 +64,6 @@ textarea {
     font-size: clamp(40px, 10vw, 120px);
     font-weight: 900;
     z-index: 9999;
-    animation: eggPop 0.4s ease;
-}
-
-@keyframes eggPop {
-    from {
-        transform: scale(0.8);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
 }
 </style>
 </head>
@@ -87,46 +71,57 @@ textarea {
 <body>
 
 <div class="container">
-
     <h1 id="title">🎉 Inter des 803 🎉</h1>
 
     <p>Participation : <b>8 €</b> — paiement sans frais</p>
 
-    <!-- Infos demandées AVANT paiement (non envoyées ici) -->
-    <input placeholder="Prénom">
-    <input placeholder="Nom">
-    <input type="number" placeholder="Âge">
-    <input placeholder="Classe (801–903)">
-    <textarea placeholder="Idée de musique 🎶 (facultatif)"></textarea>
+    <form id="infoForm">
+        <input name="prenom" placeholder="Prénom" required>
+        <input name="nom" placeholder="Nom" required>
+        <input type="number" name="age" placeholder="Âge" required>
+        <input name="classe" placeholder="Classe (801–903)" required>
+        <textarea name="musique" placeholder="Idée de musique 🎶"></textarea>
 
-    <!-- Paiement -->
-    <form action="https://revolut.me/m_mennereau" method="GET">
         <button class="btn" type="submit">
             💸 Payer 8 €
         </button>
     </form>
 
     <p style="font-size:13px;opacity:0.8;margin-top:15px">
-        Après paiement, tu seras redirigé pour confirmer ta participation 👍
+        Les informations sont envoyées au clic sur payer
     </p>
-
 </div>
 
-<!-- EASTER EGG -->
-<div id="eggOverlay">
-    🔥 803 &gt; 802 😎 🔥
-</div>
+<!-- Easter egg -->
+<div id="eggOverlay">🔥 803 &gt; 802  🔥</div>
 
 <script>
+/* ===== FORM + PAYMENT ===== */
+const form = document.getElementById("infoForm");
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const data = new FormData(form);
+
+    // Envoi vers Formspree
+    fetch("https://formspree.io/f/mojeqzor", {
+        method: "POST",
+        body: data,
+        headers: { 'Accept': 'application/json' }
+    }).finally(() => {
+        // Redirection paiement (quoi qu'il arrive)
+        window.location.href = "https://revolut.me/m_mennereau";
+    });
+});
+
+/* ===== EASTER EGG ===== */
 const title = document.getElementById("title");
 const overlay = document.getElementById("eggOverlay");
 
 title.addEventListener("click", () => {
     overlay.style.display = "flex";
-
-    setTimeout(() => {
-        overlay.style.display = "none";
-    }, 5000);
+    setTimeout(() => overlay.style.display = "none", 5000);
 });
 </script>
 
