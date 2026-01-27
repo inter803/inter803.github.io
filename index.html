@@ -90,27 +90,29 @@ textarea {
 
     <h1 id="title">🎉 Inter des 803 🎉</h1>
 
-    <p>Participation : <b>8 €</b> — paiement (sans frais)</p>
+    <p>Participation : <b>8 €</b> — paiement sans frais</p>
 
+    <!-- Infos demandées AVANT paiement (non envoyées ici) -->
+    <input placeholder="Prénom">
+    <input placeholder="Nom">
+    <input type="number" placeholder="Âge">
+    <input placeholder="Classe (801–903)">
+    <textarea placeholder="Idée de musique 🎶 (facultatif)"></textarea>
+
+    <!-- Paiement -->
     <form action="https://revolut.me/m_mennereau" method="GET">
-        <input name="prenom" placeholder="Prénom" required>
-        <input name="nom" placeholder="Nom" required>
-        <input type="number" name="age" placeholder="Âge" required>
-        <input name="classe" placeholder="Classe (801–903)" required>
-        <textarea name="musique" placeholder="Idée de musique 🎶 (facultatif)"></textarea>
-
         <button class="btn" type="submit">
             💸 Payer 8 €
         </button>
     </form>
 
     <p style="font-size:13px;opacity:0.8;margin-top:15px">
-        Après paiement, tu seras automatiquement redirigé 👍
+        Après paiement, tu seras redirigé pour confirmer ta participation 👍
     </p>
 
 </div>
 
-<!-- EASTER EGG OVERLAY -->
+<!-- EASTER EGG -->
 <div id="eggOverlay">
     🔥 803 &gt; 802 😎 🔥
 </div>
